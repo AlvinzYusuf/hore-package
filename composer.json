@@ -1,27 +1,33 @@
 {
-    "name": "hore/hore-package",
-    "description": "hore project",
-    "type": "project",
-    "license": "ISC",
-    "version": "1.0",
-    "autoload": {
-        "psr-4": {
-            "Hore\\HorePackage\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Hore\\HorePackage\\HorePackageServiceProvider"
-            ]
-        }
-    },
-    "authors": [
-        {
-            "name": "yusuf alvinz",
-            "email": "yusuuualvinz002@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {}
+  "name": "hore/hore-package",
+  "description": "hore project",
+  "type": "project",
+  "license": "ISC",
+  "version": "1.0",
+  "autoload": {
+    "psr-4": {
+      "Hore\\HorePackage\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Hore\\HorePackage\\HorePackageServiceProvider"
+      ]
+    }
+  },
+  "authors": [
+    {
+      "name": "yusuf alvinz",
+      "email": "yusuuualvinz002@gmail.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/AlvinzYusuf/hore-package"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {}
 }
