@@ -78,7 +78,15 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $transaction = postTransactions::findOrFail($id);
+
+
+        $response = [
+            'massage'=> "dapet nih data berdasarkan id!",
+            'data' => $transaction
+        ];
+
+        return response()->json($response,Response::HTTP_OK);
     }
 
 
@@ -130,6 +138,21 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $transaction = postTransactions::findOrFail($id);
+
+        try {
+            $transaction->delete();
+            $response = [
+                'massage' => 'data berhasil di hapus nih!!',
+                'data ' => $transaction
+            ];
+
+            return response()->json($response,Response::HTTP_OK);
+        } catch (QueryException $e) {
+            //throw $th;
+            $response = [
+                'massage' => 'yah!! gagal bang,nih gagalnya'.$e->errorInfo
+            ];
+        }
     }
 }
