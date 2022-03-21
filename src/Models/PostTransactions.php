@@ -5,9 +5,8 @@ namespace Hore\HorePackage\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class postTransaction extends Model
+class PostTransactions extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['title','amount','time','type'];
+    protected $fillable = ['title','amount','type'];
 }

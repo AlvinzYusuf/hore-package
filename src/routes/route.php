@@ -19,5 +19,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/posts',[PostController::class,'index'])->name("post.index");
-
+// api end point
+Route::get('/posts',[PostController::class,'index']);
+Route::post('/posts',[PostController::class ,'store']);
+Route::put('/posts/{id}',[PostController::class ,'update']);

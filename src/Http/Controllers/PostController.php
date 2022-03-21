@@ -3,12 +3,20 @@
 namespace Hore\HorePackage\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Hore\HorePackage\Models\postTransaction;
+use Hore\HorePackage\Models\postTransactions;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {
+
+    private  $massages =[
+        'required' => 'di isi ya kakak!',
+        'numeric' => 'yang ini harus nomer kak!!',
+        'in'=> 'harus pilih yang bener dong kak'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -17,23 +25,13 @@ class PostController extends Controller
     public function index()
     {
         // list data
-        $transaction = postTransaction::orderBy('time' ,"DESC")->get();
+        $transaction = postTransactions::orderBy('time' ,"DESC")->get();
         $response = [
             'massage' => "data tampil nih!!",
             'data' => $transaction
         ];
 
         return response()->json($response,Response::HTTP_OK);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //tampillan form tambah
     }
 
     /**
@@ -44,7 +42,32 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //api
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'amount' => 'required|numeric',
+            'type'=> 'required|in:expenses,revenue'
+        ],$this->massages);
+
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(),Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        try {
+            $transaction = postTransactions::create($request->all());
+            $response = [
+                'massage' => 'data berhasil di tambahin nih!!',
+                'data ' => $transaction
+            ];
+
+            return response()->json($response,Response::HTTP_CREATED);
+        } catch (QueryException $e) {
+            //throw $th;
+            $response = [
+                'massage' => 'yah!! gagal bang,nih gagalnya'.$e->errorInfo
+            ];
+        }
     }
 
     /**
@@ -58,16 +81,6 @@ class PostController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -79,6 +92,34 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $transaction = postTransactions::findOrFail($id);
+
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'amount' => 'required|numeric',
+            'type'=> 'required|in:expenses,revenue'
+        ],$this->massages);
+
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(),Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        try {
+            $transaction->update($request->all());
+            $response = [
+                'massage' => 'data berhasil di ubah nih!!',
+                'data ' => $transaction
+            ];
+
+            return response()->json($response,Response::HTTP_OK);
+        } catch (QueryException $e) {
+            //throw $th;
+            $response = [
+                'massage' => 'yah!! gagal bang,nih gagalnya'.$e->errorInfo
+            ];
+        }
     }
 
     /**
