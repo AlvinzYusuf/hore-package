@@ -3,7 +3,6 @@
   "description": "hore project",
   "type": "project",
   "license": "ISC",
-  "version": "2.1",
   "autoload": {
     "psr-4": {
       "Hore\\HorePackage\\": "src/"

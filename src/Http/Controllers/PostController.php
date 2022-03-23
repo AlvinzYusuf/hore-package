@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 class PostController extends Controller
 {
 
-    private  $massages =[
+    protected  $massages =[
         'required' => 'di isi ya kakak!',
         'numeric' => 'yang ini harus nomer kak!!',
         'in'=> 'harus pilih yang bener dong kak'

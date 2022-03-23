@@ -28,5 +28,8 @@ class HorePackageServiceProvider extends ServiceProvider
 
         // migration
         $this->loadMigrationsFrom(__DIR__."./database/migrations");
+
+        // views
+        $this->loadViewsFrom(__DIR__."./resources/views","hore");
     }
 }

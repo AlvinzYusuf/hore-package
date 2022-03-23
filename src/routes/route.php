@@ -23,3 +23,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::resource('/posts',PostController::class);
+Route::get('/test',function(){
+    return view('hore::index');
+});
